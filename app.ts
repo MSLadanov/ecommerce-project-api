@@ -11,7 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1/static", express.static("static"));
 
 app.use("/api/v1", router);
-
 app.use(ErrorHandling);
 
 app.listen(3000, () => {

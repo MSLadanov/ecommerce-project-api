@@ -8,11 +8,14 @@ export const CheckNewProductData = async (
   res: Response,
   next: NextFunction
 ) => {
+  const isProductDataCorrect = ProductSchema.parse(req.body);
+  console.log(isProductDataCorrect);
   try {
-    if (ProductSchema.parse(req.body)) {
+    if (isProductDataCorrect) {
       next();
     }
   } catch (error) {
-    next(new ApiError(404, "Error"));
+    console.log(error);
+    next(new Error("error"));
   }
 };
