@@ -22,13 +22,7 @@ const productUploadsMiddleware = productUploadConfig.fields([
 
 const router = express.Router();
 
-router.use(
-  "/products",
-  productTextDataMiddleware,
-  CheckNewProductData,
-  productUploadsMiddleware,
-  productsRouter
-);
+router.use("/products", productsRouter);
 
 router.use("/carts", cartsRouter);
 
