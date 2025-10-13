@@ -2,20 +2,32 @@ import type { Request, Response, NextFunction } from "express";
 import { ProductSchema } from "../../utils/ProductSchema.ts";
 import { ApiError } from "../../utils/ApiError.ts";
 import type { ZodError } from "zod";
+import multer from "multer";
+import productsStorageConfig from "../../config/productsStorageConfig.ts";
 
-export const CheckNewProductData = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const isProductDataCorrect = ProductSchema.parse(req.body);
-  console.log(isProductDataCorrect);
-  try {
-    if (isProductDataCorrect) {
-      next();
-    }
-  } catch (error) {
-    console.log(error);
-    next(new Error("error"));
-  }
-};
+const productUploadConfig = multer({
+  storage: productsStorageConfig,
+});
+
+const productTextDataMiddleware = multer().any();
+
+const productUploadsMiddleware = productUploadConfig.fields([
+  { name: "thumbnail", maxCount: 1 },
+  { name: "image_1", maxCount: 1 },
+  { name: "image_2", maxCount: 1 },
+  { name: "image_3", maxCount: 1 },
+  { name: "image_4", maxCount: 1 },
+]);
+
+export const CheckNewProductData = [
+  async (req: Request, res: Response, next: NextFunction) => {
+    console.log("first");
+    console.log(req.body);
+    next();
+  },
+  async (req: Request, res: Response, next: NextFunction) => {
+    console.log("second");
+    console.log(req.body);
+    next();
+  },
+];
