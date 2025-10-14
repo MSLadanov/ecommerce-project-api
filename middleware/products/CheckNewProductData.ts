@@ -4,6 +4,9 @@ import { ApiError } from "../../utils/ApiError.ts";
 import type { ZodError } from "zod";
 import multer from "multer";
 import productsStorageConfig from "../../config/productsStorageConfig.ts";
+import Express from "express";
+
+const app = Express();
 
 const productUploadConfig = multer({
   storage: productsStorageConfig,
@@ -19,15 +22,24 @@ const productUploadsMiddleware = productUploadConfig.fields([
   { name: "image_4", maxCount: 1 },
 ]);
 
-export const CheckNewProductData = [
-  async (req: Request, res: Response, next: NextFunction) => {
-    console.log("first");
-    console.log(req.body);
+export const CheckNewProductData = app.use(
+  productTextDataMiddleware,
+  productUploadsMiddleware,
+  (req: Request, res: Response, next: NextFunction) => {
+    console.log(req);
     next();
-  },
-  async (req: Request, res: Response, next: NextFunction) => {
-    console.log("second");
-    console.log(req.body);
-    next();
-  },
-];
+  }
+);
+
+// export const CheckNewProductData = [
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     console.log("first");
+//     console.log(req.body);
+//     next();
+//   },
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     console.log("second");
+//     console.log(req.body);
+//     next();
+//   },
+// ];
