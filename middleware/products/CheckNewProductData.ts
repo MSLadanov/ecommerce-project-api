@@ -24,16 +24,12 @@ const productUploadsMiddleware = productUploadConfig.fields([
 
 export const CheckNewProductData = app.use(
   productTextDataMiddleware,
-  (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body);
-    next();
-  },
-  (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body);
-    next();
-  },
-  (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body);
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const isDataValid = await ProductSchema.parse(req.body);
+    } catch (error) {
+      console.log(error);
+    }
     next();
   }
 );
