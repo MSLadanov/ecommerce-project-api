@@ -24,22 +24,16 @@ const productUploadsMiddleware = productUploadConfig.fields([
 
 export const CheckNewProductData = app.use(
   productTextDataMiddleware,
-  productUploadsMiddleware,
   (req: Request, res: Response, next: NextFunction) => {
-    console.log(req);
+    console.log(req.body);
+    next();
+  },
+  (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
+    next();
+  },
+  (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
     next();
   }
 );
-
-// export const CheckNewProductData = [
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     console.log("first");
-//     console.log(req.body);
-//     next();
-//   },
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     console.log("second");
-//     console.log(req.body);
-//     next();
-//   },
-// ];
