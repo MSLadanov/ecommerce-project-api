@@ -18,11 +18,10 @@ const productUploadsMiddleware = multer({
   { name: "image_4", maxCount: 1 },
 ]);
 
-const productTextDataMiddleware = multer().any();
-app.use(productUploadsMiddleware, productTextDataMiddleware);
 export const CheckNewProductData = app.use(
+  productUploadsMiddleware,
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body.files["thumbnail"]);
+    console.log(req.body.files);
     try {
       const isDataValid = await ProductSchema.parse(req.body);
     } catch (error) {
