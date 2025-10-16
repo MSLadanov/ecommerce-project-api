@@ -9,6 +9,10 @@ import Express from "express";
 const app = Express();
 
 const productUploadsMiddleware = multer({
+  fileFilter:(req, file, cb) => {
+    console.log(file)
+    cb(null, false)
+  },
   storage: productsStorageConfig,
 }).fields([
   { name: "thumbnail", maxCount: 1 },
@@ -21,12 +25,12 @@ const productUploadsMiddleware = multer({
 export const CheckNewProductData = app.use(
   productUploadsMiddleware,
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body.files);
+    console.log(req.body);
     try {
       const isDataValid = await ProductSchema.parse(req.body);
     } catch (error) {
       console.log(error);
     }
-    next();
+    res.send({ status: "Good!" });
   }
 );
