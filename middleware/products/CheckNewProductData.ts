@@ -8,13 +8,9 @@ import Express from "express";
 
 const app = Express();
 
-const productUploadConfig = multer({
+const productUploadsMiddleware = multer({
   storage: productsStorageConfig,
-});
-
-const productTextDataMiddleware = multer().any();
-
-const productUploadsMiddleware = productUploadConfig.fields([
+}).fields([
   { name: "thumbnail", maxCount: 1 },
   { name: "image_1", maxCount: 1 },
   { name: "image_2", maxCount: 1 },
@@ -22,9 +18,11 @@ const productUploadsMiddleware = productUploadConfig.fields([
   { name: "image_4", maxCount: 1 },
 ]);
 
+const productTextDataMiddleware = multer().any();
+app.use(productUploadsMiddleware, productTextDataMiddleware);
 export const CheckNewProductData = app.use(
-  productTextDataMiddleware,
   async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body.files["thumbnail"]);
     try {
       const isDataValid = await ProductSchema.parse(req.body);
     } catch (error) {
