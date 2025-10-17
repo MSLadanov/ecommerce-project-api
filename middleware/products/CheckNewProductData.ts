@@ -9,9 +9,8 @@ import Express from "express";
 const app = Express();
 
 const productUploadsMiddleware = multer({
-  fileFilter:(req, file, cb) => {
-    console.log(file)
-    cb(null, false)
+  fileFilter: (req, file, cb) => {
+    cb(new ApiError(500, `${file.size}`));
   },
   storage: productsStorageConfig,
 }).fields([
