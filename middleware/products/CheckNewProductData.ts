@@ -8,9 +8,13 @@ import Express from "express";
 
 const app = Express();
 
+const imageTypes = ["image/avif", "image/gif", "image/jpeg", "image/png"];
+
 const productUploadsMiddleware = multer({
   fileFilter: (req, file, cb) => {
-    cb(new ApiError(500, `${file.size}`));
+    if (!imageTypes.find((item) => item === file.mimetype)) {
+      cb(new ApiError(500, `${file.mimetype}`));
+    }
   },
   storage: productsStorageConfig,
 }).fields([
