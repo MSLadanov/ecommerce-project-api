@@ -12,9 +12,15 @@ const imageTypes = ["image/avif", "image/gif", "image/jpeg", "image/png"];
 
 const productUploadsMiddleware = multer({
   fileFilter: (req, file, cb) => {
-    if (!imageTypes.find((item) => item === file.mimetype)) {
+    console.log(req.body);
+    // const isExtensionCorrect = imageTypes.find(
+    //   (item) => item === file.mimetype
+    // );
+    // console.log(isExtensionCorrect);
+    if (false) {
       cb(new ApiError(500, `${file.mimetype}`));
     }
+    cb(new ApiError(200, "ok!"));
   },
   storage: productsStorageConfig,
 }).fields([
