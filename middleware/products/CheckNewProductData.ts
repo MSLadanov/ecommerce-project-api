@@ -13,6 +13,7 @@ const imageTypes = ["image/avif", "image/gif", "image/jpeg", "image/png"];
 const productUploadsMiddleware = multer({
   fileFilter: (req, file, cb) => {
     console.log(req.body);
+    console.log(file.mimetype, file.originalname);
     // const isExtensionCorrect = imageTypes.find(
     //   (item) => item === file.mimetype
     // );
