@@ -12,15 +12,18 @@ const imageTypes = ["image/avif", "image/gif", "image/jpeg", "image/png"];
 
 const productUploadsMiddleware = multer({
   fileFilter: (req, file, cb) => {
-    console.log(file.mimetype, file.originalname);
+    console.log(req.body);
     const isExtensionCorrect = imageTypes.includes(file.mimetype);
     if (isExtensionCorrect) {
       cb(null, true);
     } else {
-      cb(new ApiError(200, "not ok!"));
+      cb(new ApiError(415, "Unsupported Media Type!"));
     }
   },
   storage: productsStorageConfig,
+  limits: {
+    fileSize: 10 * 1024 * 1024,
+  },
 }).fields([
   { name: "thumbnail", maxCount: 1 },
   { name: "image_1", maxCount: 1 },
