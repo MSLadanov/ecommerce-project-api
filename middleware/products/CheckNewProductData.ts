@@ -12,10 +12,15 @@ const imageTypes = ["image/avif", "image/gif", "image/jpeg", "image/png"];
 
 const productUploadsMiddleware = multer({
   fileFilter: (req, file, cb) => {
-    console.log(req.body);
     const isExtensionCorrect = imageTypes.includes(file.mimetype);
+    try {
+      const isDataValid = ProductSchema.parse(req.body);
+      console.log(isDataValid)
+    } catch (error) {
+      console.log('error');
+    }
     if (isExtensionCorrect) {
-      cb(null, true);
+      cb(null, false);
     } else {
       cb(new ApiError(415, "Unsupported Media Type!"));
     }
