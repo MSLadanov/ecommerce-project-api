@@ -10,14 +10,14 @@ const app = Express();
 
 const imageTypes = ["image/avif", "image/gif", "image/jpeg", "image/png"];
 
-const productUploadsMiddleware = multer({
+export const productUploadsMiddleware = multer({
   fileFilter: (req, file, cb) => {
     const isExtensionCorrect = imageTypes.includes(file.mimetype);
     try {
       const isDataValid = ProductSchema.parse(req.body);
-      console.log(isDataValid)
+      console.log(isDataValid);
     } catch (error) {
-      console.log('error');
+      console.log("error");
     }
     if (isExtensionCorrect) {
       cb(null, false);
@@ -36,16 +36,3 @@ const productUploadsMiddleware = multer({
   { name: "image_3", maxCount: 1 },
   { name: "image_4", maxCount: 1 },
 ]);
-
-export const CheckNewProductData = app.use(
-  productUploadsMiddleware,
-  async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body);
-    try {
-      const isDataValid = await ProductSchema.parse(req.body);
-    } catch (error) {
-      console.log(error);
-    }
-    res.send({ status: "Good!" });
-  }
-);
