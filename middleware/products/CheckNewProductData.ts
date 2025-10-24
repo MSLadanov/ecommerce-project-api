@@ -1,12 +1,8 @@
-import type { Request, Response, NextFunction } from "express";
 import { ProductSchema } from "../../utils/ProductSchema.ts";
 import { ApiError } from "../../utils/ApiError.ts";
 import type { ZodError } from "zod";
 import multer from "multer";
 import productsStorageConfig from "../../config/productsStorageConfig.ts";
-import Express from "express";
-
-const app = Express();
 
 const imageTypes = ["image/avif", "image/gif", "image/jpeg", "image/png"];
 
