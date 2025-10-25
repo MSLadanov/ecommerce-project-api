@@ -1,6 +1,5 @@
 import { ProductSchema } from "../../utils/ProductSchema.ts";
 import { ApiError } from "../../utils/ApiError.ts";
-import type { ZodError } from "zod";
 import multer from "multer";
 import productsStorageConfig from "../../config/productsStorageConfig.ts";
 
