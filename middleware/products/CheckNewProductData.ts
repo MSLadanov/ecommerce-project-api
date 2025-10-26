@@ -10,9 +10,8 @@ export const productUploadsMiddleware = multer({
     const isExtensionCorrect = imageTypes.includes(file.mimetype);
     try {
       const isDataValid = ProductSchema.parse(req.body);
-      console.log(isDataValid);
     } catch (error) {
-      console.log("error");
+      cb(new ApiError(415, "Data is not correct!"));
     }
     if (isExtensionCorrect) {
       cb(null, false);
