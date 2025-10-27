@@ -73,7 +73,7 @@ class ProductsController {
       image_3,
       image_4,
     });
-    res.send({ data: "Ok" });
+    res.send(newProduct);
   }
 }
 

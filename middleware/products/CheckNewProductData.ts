@@ -8,11 +8,12 @@ const imageTypes = ["image/avif", "image/gif", "image/jpeg", "image/png"];
 export const productUploadsMiddleware = multer({
   fileFilter: (req, file, cb) => {
     const isExtensionCorrect = imageTypes.includes(file.mimetype);
-    try {
-      const isDataValid = ProductSchema.parse(req.body);
-    } catch (error) {
-      cb(new ApiError(415, "Data is not correct!"));
-    }
+    cb(new ApiError(400, JSON.stringify(ProductSchema.parse(req.body))))
+    // try {
+    //   const isDataValid = ProductSchema.parse(req.body);
+    // } catch (error) {
+    //   cb(new ApiError(415, "Data is not correct!"));
+    // }
     if (isExtensionCorrect) {
       cb(null, false);
     } else {
