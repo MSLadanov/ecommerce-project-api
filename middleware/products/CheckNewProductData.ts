@@ -11,11 +11,11 @@ export const productUploadsMiddleware = Express().use(
     fileFilter: (req, file, cb) => {
       const isExtensionCorrect = imageTypes.includes(file.mimetype);
       cb(new ApiError(400, JSON.stringify(ProductSchema.parse(req.body))));
-      // try {
-      //   const isDataValid = ProductSchema.parse(req.body);
-      // } catch (error) {
-      //   cb(new ApiError(415, "Data is not correct!"));
-      // }
+      try {
+        const isDataValid = ProductSchema.parse(req.body);
+      } catch (error) {
+        cb(new ApiError(415, "Data is not correct!"));
+      }
       if (isExtensionCorrect) {
         cb(null, false);
       } else {
