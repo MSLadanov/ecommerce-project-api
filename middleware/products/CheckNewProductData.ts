@@ -6,7 +6,7 @@ import Express from "express";
 
 const imageTypes = ["image/avif", "image/gif", "image/jpeg", "image/png"];
 
-export const productUploadsMiddleware = Express().use(
+export const checkNewProductData = Express().use(
   multer({
     fileFilter: (req, file, cb) => {
       const isExtensionCorrect = imageTypes.includes(file.mimetype);

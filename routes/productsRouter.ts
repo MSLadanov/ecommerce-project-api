@@ -1,6 +1,6 @@
 import express from "express";
 import ProductsController from "../controllers/ProductsController.ts";
-import { productUploadsMiddleware } from "../middleware/products/CheckNewProductData.ts";
+import { checkNewProductData } from "../middleware/products/CheckNewProductData.ts";
 
 const productsRouter = express.Router();
 
@@ -12,7 +12,7 @@ productsRouter.get("/category", ProductsController.getProductsByCategory);
 
 productsRouter.post(
   "/",
-  productUploadsMiddleware,
+  checkNewProductData,
   ProductsController.addProduct
 );
 
