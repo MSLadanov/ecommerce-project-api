@@ -11,5 +11,6 @@ export const checkNewUserData = Express().use(
       fileSize: 10 * 1024 * 1024,
     },
   }).fields([
+    {name: 'avatar', maxCount: 1}
   ])
 );
