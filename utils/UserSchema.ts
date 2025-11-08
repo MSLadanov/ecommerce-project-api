@@ -12,4 +12,9 @@ export const UserSchema = z.object({
   username: z.string(),
   password: z.string(),
   birthDate: z.string(),
+  image: z.string(),
+  bloodGroup: z.string(),
+  height: z.number(),
+  weight: z.number(),
+  eyeColor: z.string(),
 });
