@@ -17,4 +17,12 @@ export const UserSchema = z.object({
   height: z.number(),
   weight: z.number(),
   eyeColor: z.string(),
+  address: z.object({
+    address: z.string(),
+    city: z.string(),
+    state: z.string(),
+    stateCode: z.string(),
+    postalCode: z.string(),
+    country: z.string(),
+  }),
 });
